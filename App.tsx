@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from './components/Header';
-import Tabs from './navigation/tabs';
+import Navigation from './navigation/Navigation';
 import StartScreen from './screens/StartScreen'; 
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
       {/* <Header title="Get ready to fast"></Header> */}
       {/* <StartScreen></StartScreen> */}
       <NavigationContainer>
-        <Tabs />
+        <Navigation />
       </NavigationContainer>
     </View>
   );

@@ -32,7 +32,7 @@ const StartScreen = (props) => {
           </View>
         </View>
       </View>
-      <Navigation />
+      {/* <Navigation /> */}
     </View>
   );
 };
