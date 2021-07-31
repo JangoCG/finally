@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button, Easing } from "react-native";
+import React, { useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import Timer from "tiny-timer";
-import Header from "../components/Header";
-import Navigation from "../components/Navigation";
 import colors from "../constants/colors";
 
 
 const StartScreen = (props) => {
   const timer = new Timer();
-
   const [fill, setFill] = useState(0);
   const [fastStarted, setFastStarted] = useState(false);
   const [countdown, setCountdown] = useState<number>(0);
@@ -20,28 +16,32 @@ const StartScreen = (props) => {
   const TEN_SECONDS = 10000
   const DEV_PLACEHOLDER_TIME = 120000
 
-  const clickHandler = () => {
+  const onStartFastClicked = () => {
     circularProgressRef?.reAnimate(0, 100, DEV_PLACEHOLDER_TIME);
     setFastStarted(true)
     console.log("test")
     timer.start(DEV_PLACEHOLDER_TIME)
+    // timer.on('tick', (ms) => console.log('tick', getFormattedTime(ms)))
+    timer.on('tick', (ms) => setCountdown(getFormattedTime(ms)))
   };
-  // rounds to nearest thousand and converts ms to s
-  const getFormattedTime = (n: number) => Math.round(n / 1000);
 
-
-  timer.on('tick', (ms) => console.log('tick', getFormattedTime(ms)))
-  timer.on('tick', (ms) => setCountdown(getFormattedTime(ms)))
-  // timer.on('tick', s => console.log(timer.time))
-  // timer.on('tick', s => console.log(timer.time % 10))
-
-
-
-  const calculateTime = (fastDurationInMs: number) => {
-    return fastDurationInMs / 1000
+  const onEndFastClicked = () => {
+    setFastStarted(false)
+    setCountdown(0)
+    circularProgressRef?.reAnimate(0, 0,0);
+    timer.stop();
+    timer.off("tick", () => setCountdown(0));
+    // timer.pause;
+    console.log(timer.status)
   }
 
-
+  /**
+   * Rounds the time in milliseconds to the nearest thousandth and converts it from ms to s
+   * @param t Time in milliseconds
+   * @returns Time in seconds
+   */
+  // rounds to nearest thousand and convert from ms to s
+  const getFormattedTime = (t: number) => Math.round(t / 1000);
 
   return (
     <View style={styles.screen}>
@@ -74,16 +74,25 @@ const StartScreen = (props) => {
 
             )
           }
-
-
         </AnimatedCircularProgress>
         <View style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <Button
-              title="Start your 16h fast"
-              onPress={() => clickHandler()}
-              color={"white"}
-            />
+          <View >
+            {!fastStarted ?
+              <View style={styles.startButton}>
+                <Button
+                  title="Start your 16h fast"
+                  onPress={() => onStartFastClicked()}
+                  color={"white"}
+                />
+              </View> :
+              <View style={styles.endButton}>
+                <Button
+                  title="End your fast"
+                  onPress={() => onEndFastClicked()}
+                  color={"white"}
+                />
+              </View>
+            }
           </View>
         </View>
       </View>
@@ -130,10 +139,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // paddingHorizontal: 15,
   },
-  button: {
+  startButton: {
     marginTop: 40,
     width: 190,
     backgroundColor: colors.success,
+    borderRadius: 20,
+  },
+  endButton: {
+    backgroundColor: colors.danger,
+    marginTop: 40,
+    width: 190,
     borderRadius: 20,
   },
   input: {
