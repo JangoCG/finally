@@ -1,54 +1,41 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import Timer from "tiny-timer";
+import useCountDown from 'react-countdown-hook';
 import colors from "../constants/colors";
+import Header from "../components/Header";
 
+const SIXTEEN_HOURS = 57600000
+const TEN_SECONDS = 10000
+const DEV_PLACEHOLDER_TIME = 120000
+const initialTime = 60 * 1000; // initial time in milliseconds, defaults to 60000
+const interval = 1000; // 
 
 const StartScreen = (props) => {
-  const timer = new Timer();
   const [fill, setFill] = useState(0);
-  const [fastStarted, setFastStarted] = useState(false);
+  const [fasting, setFasting] = useState(false);
   const [countdown, setCountdown] = useState<number>(0);
+  const [timeLeft, { start: startTimer, pause, resume, reset: resetTimer }] = useCountDown(DEV_PLACEHOLDER_TIME, interval);
+
 
   let circularProgressRef: AnimatedCircularProgress | null;
-  const SIXTEEN_HOURS = 57600000
-  const TEN_SECONDS = 10000
-  const DEV_PLACEHOLDER_TIME = 120000
 
   const onStartFastClicked = () => {
     circularProgressRef?.reAnimate(0, 100, DEV_PLACEHOLDER_TIME);
-    setFastStarted(true)
-    console.log("test")
-    timer.start(DEV_PLACEHOLDER_TIME)
-    // timer.on('tick', (ms) => console.log('tick', getFormattedTime(ms)))
-    timer.on('tick', (ms) => setCountdown(getFormattedTime(ms)))
+    setFasting(true)
+    startTimer()
   };
 
   const onEndFastClicked = () => {
-    setFastStarted(false)
+    setFasting(false)
     setCountdown(0)
-    circularProgressRef?.reAnimate(0, 0,0);
-    timer.stop();
-    timer.off("tick", () => setCountdown(0));
-    // timer.pause;
-    console.log(timer.status)
+    circularProgressRef?.reAnimate(0, 0, 0);
+    resetTimer();
   }
-
-  /**
-   * Rounds the time in milliseconds to the nearest thousandth and converts it from ms to s
-   * @param t Time in milliseconds
-   * @returns Time in seconds
-   */
-  // rounds to nearest thousand and convert from ms to s
-  const getFormattedTime = (t: number) => Math.round(t / 1000);
 
   return (
     <View style={styles.screen}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>FINALLY</Text>
-        <Text style={styles.headerText}>Hello</Text>
-      </View>
+      {!fasting ? <Header title="Finally" /> : <Header title="You're fasting!" />}
       <View style={styles.contentContainer}>
         <AnimatedCircularProgress
           style={styles.progressBar}
@@ -65,19 +52,18 @@ const StartScreen = (props) => {
               <View>
                 <Text style={styles.timerHeader}>
                   {/* TODO: This should show how much time is left in %  */}
-                  {fastStarted && `Elapsed Time ${fill.toFixed()}%`}
+                  {fasting && `Elapsed Time ${fill.toFixed()}%`}
                 </Text>
                 <Text style={styles.timerText}>
-                  {new Date(countdown * 1000).toISOString().substr(11, 8)}
+                  {new Date(timeLeft).toISOString().substr(11, 8)}
                 </Text>
               </View>
-
             )
           }
         </AnimatedCircularProgress>
         <View style={styles.buttonContainer}>
           <View >
-            {!fastStarted ?
+            {!fasting ?
               <View style={styles.startButton}>
                 <Button
                   title="Start your 16h fast"
