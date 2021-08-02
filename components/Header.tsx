@@ -7,14 +7,22 @@ import GoalModal from "./GoalModal";
 
 const Header = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  let modalRef: Modal | null;
 
   const onIntervalBtnClick = () => {
     console.log("clicked")
   }
 
+  type toggleModalType = () => void;
+
+  const toggleModalFunc: toggleModalType = () => {
+    console.log("callback modal clicked");
+    setModalVisible(!modalVisible)
+ }
+
   return (
     <View style={styles.header}>
-      <GoalModal visible={modalVisible} />
+      <GoalModal visible={modalVisible} toggleModal={toggleModalFunc} />
       <Text style={styles.headerTitle}>{props.title}</Text>
       <View style={styles.intervalButton}>
         <Button onPress={() => setModalVisible(true)} title="16:8 Fast"></Button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import useCountDown from 'react-countdown-hook';
 import colors from "../constants/colors";
@@ -19,6 +19,8 @@ const StartScreen = (props) => {
 
 
   let circularProgressRef: AnimatedCircularProgress | null;
+ 
+
 
   const onStartFastClicked = () => {
     circularProgressRef?.reAnimate(0, 100, DEV_PLACEHOLDER_TIME);

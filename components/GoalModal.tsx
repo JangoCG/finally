@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Button, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import colors from '../constants/colors';
 import Goal from './Goal';
 import { AntDesign } from '@expo/vector-icons';
 
-const GoalModal = ({visible}) => {
-    const [modalVisible, setModalVisible] = useState();
-
-    useEffect(() => {
-        console.log("inside useEffect",visible)
-        setModalVisible(!modalVisible);
-      }, [visible]);
+interface Props {
+    visible: boolean,
+    toggleModal: () => void;
+}
+const GoalModal: FC<Props>= ({ visible, toggleModal }) => {
 
     return (
-        <Modal animationType="slide" visible={modalVisible}>
+        <Modal animationType="slide" visible={visible}>
             <View>
                 <View style={styles.titleContainer}>
                     <Text style={styles.modalTitle}>
                         Change fast goal
                     </Text>
-                    <TouchableHighlight onPress={() => setModalVisible(!modalVisible)} >
-                    <AntDesign name="close" size={24} color="black" />
+                    <TouchableHighlight onPress={() => toggleModal} >
+                        <AntDesign name="close" size={24} color="black" />
                     </TouchableHighlight>
 
                 </View>
@@ -30,7 +28,7 @@ const GoalModal = ({visible}) => {
                     <Goal duration={"18"}></Goal>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button onPress={() => setModalVisible(!modalVisible)} title="Close Modal"></Button>
+                    <Button onPress={() => toggleModal() } title="Close Modal"></Button>
                 </View>
             </View>
         </Modal>
