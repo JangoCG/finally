@@ -7,15 +7,16 @@ import {AntDesign} from '@expo/vector-icons';
 interface Props {
     visible: boolean,
     toggleModal: () => void;
-    headerFunction: (n: number) => void
+    parentFunction: (n: number) => void
+    // test
 }
 
 // Replace those with correct values before release
-const THIRTEEN_HOUR_FAST_DEV = 130
-const SIXTEEN_HOUR_FAST_DEV = 160
-const EIGHTEEN_HOUR_FAST_DEV = 180
+const THIRTEEN_HOUR_FAST_DEV = 13000
+const SIXTEEN_HOUR_FAST_DEV = 16000
+const EIGHTEEN_HOUR_FAST_DEV = 18000
 
-const GoalModal: FC<Props> = ({ visible, toggleModal, headerFunction }) => {
+const GoalModal: FC<Props> = ({ visible, toggleModal, parentFunction }) => {
 
     return (
         <Modal animationType="slide" visible={visible}>
@@ -30,13 +31,13 @@ const GoalModal: FC<Props> = ({ visible, toggleModal, headerFunction }) => {
 
                 </View>
                 <View style={styles.modalContent}>
-                    <TouchableOpacity onPress={() => headerFunction(THIRTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => parentFunction(THIRTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"13"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => headerFunction(SIXTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => parentFunction(SIXTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"16"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => headerFunction(EIGHTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => parentFunction(EIGHTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"18"} />
                     </TouchableOpacity>
                 </View>

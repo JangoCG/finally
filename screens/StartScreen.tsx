@@ -1,50 +1,77 @@
-import React, {useState} from "react";
-import {Button, Modal, StyleSheet, Text, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {Button, StyleSheet, Text, View} from "react-native";
 import {AnimatedCircularProgress} from "react-native-circular-progress";
-import useCountDown from 'react-countdown-hook';
 import colors from "../constants/colors";
 import Header from "../components/Header";
 
-const SIXTEEN_HOURS = 57600000
-const TEN_SECONDS = 10000
-const DEV_PLACEHOLDER_TIME = 120000
-const initialTime = 60 * 1000; // initial time in milliseconds, defaults to 60000
-const interval = 1000; //
-
-const StartScreen = (props) => {
-    const [fill, setFill] = useState(0);
+const StartScreen = () => {
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [timer, setTimer] = useState<any>(); // IN YOU NEED TO STOP TIMER
+    const [fill] = useState(0);
     const [fasting, setFasting] = useState(false);
-    const [countdown, setCountdown] = useState<number>(0);
-    const [fastDuration, setFastDuration] = useState(0);
     const [childData, setChildData] = useState<number>(0);
-    let [timeLeft, {start: startTimer, pause, resume, reset: resetTimer}] = useCountDown(childData, interval);
+    // change this default to 16h before release
+    const DEFAULT_FAST_DURATION = 60;
+
+    useEffect(() => {
+        if (timeLeft > 0 && fasting) {
+            console.log("inside if check")
+            updateSeconds();
+        } else {
+            setTimeLeft(DEFAULT_FAST_DURATION);
+            setFasting(false);
+        }
+        // eslint-disable-next-line
+    }, [timeLeft, fasting]);
+    let timerID;
+
+    /* Timer Logic */
+    function updateSeconds() {
+        timerID = setTimeout(() => {
+            setTimeLeft(timeLeft - 1);
+        }, 1000);
+
+        setTimer(timerID);
+    }
+
+    function convertSecondsToTimeStamp(seconds: number) {
+        return new Date(seconds * 1000).toISOString().substr(11, 8)
+    }
 
     let circularProgressRef: AnimatedCircularProgress | null;
 
     const onStartFastClicked = () => {
-        resetTimer();
-        console.log("child data", childData);
-        circularProgressRef?.reAnimate(0, 100, childData);
+        console.log("child data(start clicked)", childData)
+        // rename this to something meaningful
+        let duration_in_ms: number;
+        if (childData === 0) {
+            duration_in_ms = DEFAULT_FAST_DURATION * 1000
+        } else {
+            duration_in_ms = childData * 1000
+        }
+        circularProgressRef?.reAnimate(0, 100, duration_in_ms);
         setFasting(true)
-        startTimer()
     };
 
     const onEndFastClicked = () => {
         setFasting(false)
-        setCountdown(0)
+        clearTimeout(timer)
+        setTimeLeft(0);
         circularProgressRef?.reAnimate(0, 0, 0);
-        resetTimer();
     }
 
-    const parentFunction = (time: number) => {
-        resetTimer();
+    const startScreenFunction = (time: number) => {
+        console.log("Start Screen Component - TIMER:", time);
+        console.log("CHILD DATA SHOULD BE", time);
+        clearTimeout(timer)
         setChildData(time);
+        setTimeLeft(time);
     }
 
     return (
         <View style={styles.screen}>
-            {!fasting ? <Header title="Finally" passChildData={parentFunction}/> :
-                <Header title="You're fasting!" passChildData={parentFunction}/>}
+            {!fasting ? <Header title="Finally" startScreenFunction={startScreenFunction}/> :
+                <Header title="You're fasting!" startScreenFunction={startScreenFunction}/>}
             <View style={styles.contentContainer}>
                 <AnimatedCircularProgress
                     style={styles.progressBar}
@@ -63,8 +90,9 @@ const StartScreen = (props) => {
                                     {/* TODO: This should show how much time is left in %  */}
                                     {fasting && `Elapsed Time ${fill.toFixed()}%`}
                                 </Text>
+                                {/*This is the actual countdown timer*/}
                                 <Text style={styles.timerText}>
-                                    {new Date(timeLeft).toISOString().substr(11, 8)}
+                                    {convertSecondsToTimeStamp(timeLeft)}
                                 </Text>
                             </View>
                         )
