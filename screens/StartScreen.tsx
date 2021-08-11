@@ -3,7 +3,7 @@ import {StyleSheet, View} from "react-native";
 import {AnimatedCircularProgress} from "react-native-circular-progress";
 import colors from "../shared/constants/colors";
 import Header from "../components/Header";
-import ControlButtons from "../components/ControlButtons";
+import FastControl from "../components/FastControl";
 import Countdown from "../components/Countdown";
 
 const StartScreen = () => {
@@ -74,9 +74,12 @@ const StartScreen = () => {
                     tintColor={colors.success}
                     backgroundColor="lightgrey"
                 >
-                    {(fill: number) => <Countdown fasting={fasting} fill={fill} timeLeft={timeLeft}/>}
+                    {
+                         // CB of AnimatedCircularProgress to get the current fill value.
+                        (fill: number) => <Countdown fasting={fasting} fill={fill} timeLeft={timeLeft}/>
+                    }
                 </AnimatedCircularProgress>
-                <ControlButtons
+                <FastControl
                     fasting={fasting}
                     onStartFastClicked={onStartFastClicked}
                     onEndFastClicked={onEndFastClicked}
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "white"
+        backgroundColor: "#fdfbf8"
     },
     contentContainer: {
         justifyContent: "center",

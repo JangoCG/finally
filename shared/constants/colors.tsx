@@ -4,5 +4,6 @@ export default {
     accent: "#c717fc",
     success: "#3D9970",
     danger: "#FF4136",
-    darkGrey: "#505050"
+    darkGrey: "#505050",
+    background: "#fdfbf8"
 }
