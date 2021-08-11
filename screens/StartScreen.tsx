@@ -14,6 +14,7 @@ const StartScreen = () => {
     const [fastDuration, setFastDuration] = useState<number>(0);
     // change this default to 16h before release
     const DEFAULT_FAST_DURATION = 60;
+    let circularProgressRef: AnimatedCircularProgress | null;
 
     useEffect(() => {
         if (timeLeft > 0 && fasting) {
@@ -34,8 +35,6 @@ const StartScreen = () => {
 
         setTimer(timerID);
     }
-
-    let circularProgressRef: AnimatedCircularProgress | null;
 
     const onStartFastClicked = () => {
         let duration_in_ms: number;

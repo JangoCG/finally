@@ -1,16 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Header from './components/Header';
-import Navigation from './navigation/Navigation';
-import StartScreen from './screens/StartScreen'; 
+import {StyleSheet, View} from 'react-native';
+import Navigation from './components/Navigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <Header title="Get ready to fast"></Header> */}
-      {/* <StartScreen></StartScreen> */}
       <NavigationContainer>
         <Navigation />
       </NavigationContainer>
