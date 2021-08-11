@@ -1,13 +1,10 @@
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {FontAwesome, Ionicons} from "@expo/vector-icons";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import StartScreen from "../screens/StartScreen";
-import { FontAwesome } from "@expo/vector-icons";
-import colors from "../constants/colors";
-import { color } from "react-native-reanimated";
-
+import colors from "../shared/constants/colors";
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {

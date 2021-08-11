@@ -1,11 +1,11 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import properties from '../constants/properties'
+import React, {FC} from 'react'
+import {StyleSheet, Text, View} from 'react-native'
+import {GoalProps} from '../../shared/interfaces'
 
-const Goal = (props) => {
+const Goal: FC<GoalProps> = ({duration}) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.goalDuration}>{`${props.duration} hours`}</Text>
+            <Text style={styles.goalDuration}>{`${duration} hours`}</Text>
         </View>
     )
 }
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.22,
         shadowRadius: 2.22,
-        // ----------------- 
+        // -----------------
         elevation: 3,
         padding: 16,
         height: 100,
@@ -37,6 +37,5 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 20,
         fontWeight: 'bold',
-    
     }
 })

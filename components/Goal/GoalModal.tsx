@@ -1,13 +1,13 @@
 import React, {FC} from 'react'
 import {Button, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native'
-import colors from '../constants/colors';
+import colors from '../../shared/constants/colors';
 import Goal from './Goal';
 import {AntDesign} from '@expo/vector-icons';
 
-interface Props {
+interface GoalModalProps {
     visible: boolean,
     toggleModal: () => void;
-    headerFunction: (n: number) => void
+    setCountdownHeader: (n: number) => void
 }
 
 // Replace those with correct values before release
@@ -15,7 +15,7 @@ const THIRTEEN_HOUR_FAST_DEV = 130
 const SIXTEEN_HOUR_FAST_DEV = 160
 const EIGHTEEN_HOUR_FAST_DEV = 180
 
-const GoalModal: FC<Props> = ({ visible, toggleModal, headerFunction }) => {
+const GoalModal: FC<GoalModalProps> = ({ visible, toggleModal, setCountdownHeader }) => {
 
     return (
         <Modal animationType="slide" visible={visible}>
@@ -30,13 +30,13 @@ const GoalModal: FC<Props> = ({ visible, toggleModal, headerFunction }) => {
 
                 </View>
                 <View style={styles.modalContent}>
-                    <TouchableOpacity onPress={() => headerFunction(THIRTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(THIRTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"13"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => headerFunction(SIXTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(SIXTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"16"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => headerFunction(EIGHTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(EIGHTEEN_HOUR_FAST_DEV)} >
                         <Goal duration={"18"} />
                     </TouchableOpacity>
                 </View>
