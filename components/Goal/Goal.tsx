@@ -1,8 +1,8 @@
 import React, {FC} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
-import {GoalProps} from '../../shared/interfaces'
+import {Goal} from '../../shared/interfaces'
 
-const Goal: FC<GoalProps> = ({duration}) => {
+const Goal: FC<Goal> = ({duration}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.goalDuration}>{`${duration} hours`}</Text>

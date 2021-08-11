@@ -1,4 +1,4 @@
-export interface GoalProps {
+export interface Goal {
     duration: string,
 }
 

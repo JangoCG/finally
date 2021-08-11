@@ -2,17 +2,15 @@ import React, {FC} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import colors from "../shared/constants/colors";
 
-interface props {
+interface Countdown {
     fasting: boolean,
     fill: number,
     timeLeft: number
 }
 
-const Countdown: FC<props> = ({fasting, fill, timeLeft}) => {
-
+const Countdown: FC<Countdown> = ({fasting, fill, timeLeft}) => {
     const convertSecondsToTimeStamp =
         (seconds: number) => new Date(seconds * 1000).toISOString().substr(11, 8)
-
 
     return (
         <View>

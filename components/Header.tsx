@@ -4,12 +4,12 @@ import colors from "../shared/constants/colors";
 import properties from "../shared/constants/properties";
 import GoalModal from "./Goal/GoalModal";
 
-interface Props {
+interface Header {
     fasting: boolean,
     setCountdownStartScreen: (n: number) => void;
 }
 
-const Header: FC<Props> = ({ setCountdownStartScreen, fasting}) => {
+const Header: FC<Header> = ({ setCountdownStartScreen, fasting}) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const toggleModal = () => {

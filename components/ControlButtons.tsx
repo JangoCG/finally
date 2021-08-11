@@ -2,13 +2,13 @@ import React, {FC} from 'react'
 import {Button, StyleSheet, View} from 'react-native'
 import colors from "../shared/constants/colors";
 
-interface props {
+interface ControlButtons {
     fasting: boolean,
     onStartFastClicked: () => void
     onEndFastClicked: () => void
 }
 
-const ControlButtons: FC<props> = ({fasting, onStartFastClicked, onEndFastClicked}) => {
+const ControlButtons: FC<ControlButtons> = ({fasting, onStartFastClicked, onEndFastClicked}) => {
     return (
         <View style={styles.buttonContainer}>
             <View>
