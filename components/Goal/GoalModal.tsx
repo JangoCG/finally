@@ -10,9 +10,9 @@ interface GoalModalProps {
     setCountdownHeader: (n: number) => void
 }
 
-const THIRTEEN_HOURS = 46800
-const SIXTEEN_HOURS = 57600
-const EIGHTEEN_HOURS= 64800
+const THIRTEEN_HOURS = 130
+const SIXTEEN_HOURS = 160
+const EIGHTEEN_HOURS= 180
 
 const GoalModal: FC<GoalModalProps> = ({ visible, toggleModal, setCountdownHeader }) => {
 

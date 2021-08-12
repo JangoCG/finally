@@ -7,7 +7,7 @@ interface RoundButtonProps {
     title: string
     marginTop?: string,
     width?: number,
-    fontSize?: string
+    fontSize?: number
     height?: number
     onPress: () => void
 }
@@ -19,6 +19,7 @@ const RoundButton: FC<RoundButtonProps> = (
         backgroundColor,
         marginTop = DEFAULT_MARGIN_TOP,
         fontColor,
+        fontSize=16,
         title,
         width=DEFAULT_WIDTH,
         height=50,
@@ -50,7 +51,7 @@ const RoundButton: FC<RoundButtonProps> = (
                 onPress={() => onPress()}
             >
                 <Text style={{
-                    fontSize: 16,
+                    fontSize: fontSize,
                     fontWeight: '700',
                     color: fontColor,
                     textAlign: "center"

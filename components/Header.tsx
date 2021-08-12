@@ -27,10 +27,12 @@ const Header: FC<Header> = ({setCountdownStartScreen, fasting}) => {
             <GoalModal visible={modalVisible} toggleModal={toggleModal} setCountdownHeader={setCountdownHeader}/>
             <Text style={styles.headerTitle}>{fasting ? "You're fasting" : "Finally"}</Text>
             <RoundButton
-                backgroundColor={colors.lightGrey}
-                fontColor={"black"}
+                backgroundColor={"#eeeeee"}
+                fontColor={"#353839"}
                 title={"Change Fast"}
                 height={40}
+                width={150}
+                fontSize={15}
                 onPress={() => setModalVisible(true)}
             />
         </View>
