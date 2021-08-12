@@ -10,10 +10,9 @@ interface GoalModalProps {
     setCountdownHeader: (n: number) => void
 }
 
-// Replace those with correct values before release
-const THIRTEEN_HOUR_FAST_DEV = 130
-const SIXTEEN_HOUR_FAST_DEV = 160
-const EIGHTEEN_HOUR_FAST_DEV = 180
+const THIRTEEN_HOURS = 46800
+const SIXTEEN_HOURS = 57600
+const EIGHTEEN_HOURS= 64800
 
 const GoalModal: FC<GoalModalProps> = ({ visible, toggleModal, setCountdownHeader }) => {
 
@@ -30,13 +29,13 @@ const GoalModal: FC<GoalModalProps> = ({ visible, toggleModal, setCountdownHeade
 
                 </View>
                 <View style={styles.modalContent}>
-                    <TouchableOpacity onPress={() => setCountdownHeader(THIRTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(THIRTEEN_HOURS)} >
                         <Goal duration={"13"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setCountdownHeader(SIXTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(SIXTEEN_HOURS)} >
                         <Goal duration={"16"} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setCountdownHeader(EIGHTEEN_HOUR_FAST_DEV)} >
+                    <TouchableOpacity onPress={() => setCountdownHeader(EIGHTEEN_HOURS)} >
                         <Goal duration={"18"} />
                     </TouchableOpacity>
                 </View>

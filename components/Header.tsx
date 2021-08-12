@@ -1,15 +1,16 @@
 import React, {FC, useState} from "react";
-import {Button, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import colors from "../shared/constants/colors";
 import properties from "../shared/constants/properties";
 import GoalModal from "./Goal/GoalModal";
+import RoundButton from "./RoundButton";
 
 interface Header {
     fasting: boolean,
     setCountdownStartScreen: (n: number) => void;
 }
 
-const Header: FC<Header> = ({ setCountdownStartScreen, fasting}) => {
+const Header: FC<Header> = ({setCountdownStartScreen, fasting}) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const toggleModal = () => {
@@ -17,6 +18,7 @@ const Header: FC<Header> = ({ setCountdownStartScreen, fasting}) => {
     }
 
     const setCountdownHeader = (duration: number) => {
+        console.log("passed duration in header", duration)
         setCountdownStartScreen(duration)
     }
 
@@ -24,10 +26,13 @@ const Header: FC<Header> = ({ setCountdownStartScreen, fasting}) => {
         <View style={styles.header}>
             <GoalModal visible={modalVisible} toggleModal={toggleModal} setCountdownHeader={setCountdownHeader}/>
             <Text style={styles.headerTitle}>{fasting ? "You're fasting" : "Finally"}</Text>
-            <View style={styles.intervalButton}>
-                <Button onPress={() => setModalVisible(true)} title="16:8 Fast"/>
-            </View>
-
+            <RoundButton
+                backgroundColor={colors.lightGrey}
+                fontColor={"black"}
+                title={"Change Fast"}
+                height={40}
+                onPress={() => setModalVisible(true)}
+            />
         </View>
     );
 };

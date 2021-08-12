@@ -7,6 +7,8 @@ interface RoundButtonProps {
     title: string
     marginTop?: string,
     width?: number,
+    fontSize?: string
+    height?: number
     onPress: () => void
 }
 
@@ -19,6 +21,7 @@ const RoundButton: FC<RoundButtonProps> = (
         fontColor,
         title,
         width=DEFAULT_WIDTH,
+        height=50,
         onPress
     }
 ) => {
@@ -33,7 +36,7 @@ const RoundButton: FC<RoundButtonProps> = (
                     alignContent: "center",
                     marginTop,
                     width,
-                    height: 50,
+                    height,
 
                     //Box Shadow
                     shadowColor: "#000",

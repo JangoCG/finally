@@ -12,15 +12,13 @@ const StartScreen = () => {
     const [fill] = useState(0);
     const [fasting, setFasting] = useState(false);
     const [fastDuration, setFastDuration] = useState<number>(0);
-    // change this default to 16h before release
-    const DEFAULT_FAST_DURATION = 60;
+    const DEFAULT_FAST_DURATION = 57600; // 16h
     let circularProgressRef: AnimatedCircularProgress | null;
 
     useEffect(() => {
         if (timeLeft > 0 && fasting) {
-            console.log("inside if check")
             updateSeconds();
-        } else {
+        } else if (!fasting) {
             setTimeLeft(DEFAULT_FAST_DURATION);
             setFasting(false);
         }
@@ -39,6 +37,7 @@ const StartScreen = () => {
     const onStartFastClicked = () => {
         let duration_in_ms: number;
         if (fastDuration === 0) {
+            console.log("fastDuration is", fastDuration)
             duration_in_ms = DEFAULT_FAST_DURATION * 1000
         } else {
             duration_in_ms = fastDuration * 1000
@@ -55,6 +54,7 @@ const StartScreen = () => {
     }
 
     const setCountdownStartScreen = (time: number) => {
+        console.log("duration in start screen", time)
         clearTimeout(timer)
         setFastDuration(time);
         setTimeLeft(time);
@@ -72,10 +72,10 @@ const StartScreen = () => {
                     prefill={0}
                     ref={(ref) => (circularProgressRef = ref)}
                     tintColor={colors.success}
-                    backgroundColor="lightgrey"
+                    backgroundColor="#eeeeee"
                 >
                     {
-                         // CB of AnimatedCircularProgress to get the current fill value.
+                        // CB of AnimatedCircularProgress to get the current fill value.
                         (fill: number) => <Countdown fasting={fasting} fill={fill} timeLeft={timeLeft}/>
                     }
                 </AnimatedCircularProgress>
