@@ -5,18 +5,24 @@ import colors from "../shared/constants/colors";
 interface CountdownProps {
     fasting: boolean,
     fill: number,
-    timeLeft: number
+    timeLeft: number,
+    fastDuration: number
 }
 
-const Countdown: FC<CountdownProps> = ({fasting, fill, timeLeft}) => {
+function getElapsedTimeInPercent(fastDuration:number, timeLeft:number) {
+    console.log("fast duration", fastDuration)
+    console.log("time left", timeLeft)
+    return 100 - (timeLeft * 100) / fastDuration;
+}
+
+const Countdown: FC<CountdownProps> = ({fasting, fill, timeLeft, fastDuration}) => {
     const convertSecondsToTimeStamp =
         (seconds: number) => new Date(seconds * 1000).toISOString().substr(11, 8)
 
     return (
         <View>
             <Text style={styles.timerHeader}>
-                {/* TODO: This should show how much time is left in %  */}
-                {fasting && `Elapsed Time ${fill.toFixed()}%`}
+                {fasting && `Elapsed Time ${getElapsedTimeInPercent(fastDuration, timeLeft).toFixed()}%`}
             </Text>
             {/*This is the actual countdown timer*/}
             <Text style={styles.timerText}>

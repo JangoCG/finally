@@ -21,6 +21,7 @@ const StartScreen = () => {
             console.log("inside if check")
             updateSeconds();
         } else {
+            setFastDuration(DEFAULT_FAST_DURATION);
             setTimeLeft(DEFAULT_FAST_DURATION);
             setFasting(false);
         }
@@ -76,7 +77,7 @@ const StartScreen = () => {
                 >
                     {
                          // CB of AnimatedCircularProgress to get the current fill value.
-                        (fill: number) => <Countdown fasting={fasting} fill={fill} timeLeft={timeLeft}/>
+                        (fill: number) => <Countdown fasting={fasting} fill={fill} timeLeft={timeLeft} fastDuration={fastDuration}/>
                     }
                 </AnimatedCircularProgress>
                 <FastControl
