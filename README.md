@@ -6,7 +6,7 @@ Finally is a simple react-native app to help you with intermitted fasting. You c
 - 16h fast
 - 18h fast
 
-![App Screenshpt](shared/demo_screen.png?raw=true "Optional Title")
+![App Screenshot](shared/demo_screen.png?raw=true "Optional Title"){:height="36px" width="36px"}.
 
 ## Installation
 
